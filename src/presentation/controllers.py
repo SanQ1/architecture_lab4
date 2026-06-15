@@ -33,12 +33,14 @@ def register_user():
     
     command = RegisterUserCommand(
         username=data.get("username"),
-        password=data.get("password")
+        password=data.get("password"),
+        email=data.get("email")
     )
     
     handler = RegisterUserCommandHandler(
         uow=current_app.uow, 
-        factory=current_app.user_factory
+        factory=current_app.user_factory,
+        notification_service=current_app.notification_service
     )
     
     try:
@@ -100,7 +102,8 @@ def create_order():
     
     handler = CreateOrderCommandHandler(
         uow=current_app.uow, 
-        factory=current_app.order_factory
+        factory=current_app.order_factory,
+        event_bus=current_app.event_bus
     )
     
     try:

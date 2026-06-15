@@ -14,6 +14,7 @@ class UserEntity(Base):
     id: Mapped[str] = mapped_column(primary_key=True, default=lambda: str(uuid.uuid4()))
     username: Mapped[str] = mapped_column(unique=True)
     password_hash: Mapped[str] = mapped_column()
+    email: Mapped[str] = mapped_column()
 
 class ProductEntity(Base):
     __tablename__ = "products"

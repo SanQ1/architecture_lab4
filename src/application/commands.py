@@ -4,6 +4,7 @@ from dataclasses import dataclass
 class RegisterUserCommand:
     username: str
     password: str
+    email: str
 
 @dataclass(frozen=True)
 class CreateOrderCommand:

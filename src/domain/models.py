@@ -22,6 +22,7 @@ class User:
     id: str
     username: str
     password_hash: str
+    email: str
 
     def __post_init__(self):
         if not self.username:

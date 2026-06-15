@@ -18,7 +18,7 @@ source venv/bin/activate
 echo "Встановлення бібліотек..."
 pip install flask flask-sqlalchemy flask-jwt-extended psycopg2-binary pytest
 
-CONTAINER_NAME="lab3-db"
+CONTAINER_NAME="lab4-db"
 
 if [ "$(docker ps -aq -f name=^$CONTAINER_NAME$)" ]; then
     echo "Контейнер $CONTAINER_NAME вже існує. Запускаю його..."

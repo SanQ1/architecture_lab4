@@ -7,7 +7,7 @@ class UserFactory:
     def __init__(self, user_repo: AbstractUserRepository):
         self._user_repo = user_repo
 
-    def create(self, username: str, password: str) -> User:
+    def create(self, username: str, password: str, email: str) -> User:
         if self._user_repo.get_by_username(username):
             raise DomainError(f"Користувач з іменем {username} вже існує")
         
@@ -16,4 +16,4 @@ class UserFactory:
             
         password_hash = generate_password_hash(password)
         
-        return User(id=None, username=username, password_hash=password_hash)
+        return User(id=None, username=username, password_hash=password_hash, email=email)

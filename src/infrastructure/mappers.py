@@ -52,8 +52,8 @@ class OrderMapper:
 class UserMapper:
     @staticmethod
     def to_domain(entity: UserEntity) -> User:
-        return User(id=entity.id, username=entity.username, password_hash=entity.password_hash)
+        return User(id=entity.id, username=entity.username, password_hash=entity.password_hash, email=entity.email)
 
     @staticmethod
     def to_entity(domain: User) -> UserEntity:
-        return UserEntity(id=domain.id, username=domain.username, password_hash=domain.password_hash)
+        return UserEntity(id=domain.id, username=domain.username, password_hash=domain.password_hash, email=domain.email)

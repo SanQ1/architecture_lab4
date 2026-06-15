@@ -1,4 +1,4 @@
-# Лабораторна робота №2
+# Лабораторна робота №4
 Простий застосунок онлайн магазину. Працює локально на порту 5000.
 
 ## Перед запуском та тестуванням
@@ -12,7 +12,7 @@
 ```bash
 curl -X POST http://localhost:5000/api/v1/users/register \
      -H "Content-Type: application/json" \
-     -d '{"username": "testuser", "password": "password123"}'
+     -d '{"username": "testuser", "password": "password123", "email": "some-email@gmail.com"}'
 ```
 
 Вхід та зберігання токена в змінну середовища:

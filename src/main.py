@@ -8,6 +8,10 @@ from src.infrastructure.unit_of_work import SQLAlchemyUnitOfWork
 from src.domain.factories.order_factory import OrderFactory
 from src.domain.factories.user_factory import UserFactory
 from src.infrastructure.repositories import PostgresUserRepository, PostgresOrderRepository
+from src.infrastructure.notifications.email_service import EmailNotificationService
+from src.application.events_handler import NotificationEventHandler
+from src.infrastructure.event_bus import EventBus
+from src.application.events import OrderCreated
 from src.config import Config
 
 def create_app(config_class=Config):
@@ -24,16 +28,23 @@ def create_app(config_class=Config):
 
     user_repo = PostgresUserRepository(session=db.session)
     order_repo = PostgresOrderRepository(session=db.session)
+    notification_service = EmailNotificationService()
 
     user_factory = UserFactory(user_repo=user_repo)
     order_factory = OrderFactory(order_repo=order_repo, user_repo=user_repo)
 
     uow = SQLAlchemyUnitOfWork() 
+
+    bus = EventBus()
+    notification_handler = NotificationEventHandler(notification_service)
+    bus.subscribe(OrderCreated, notification_handler.on_order_created)
     
     app.db = db
     app.uow = uow
     app.user_factory = user_factory
     app.order_factory = order_factory
+    app.notification_service = notification_service
+    app.event_bus = bus
 
     app.register_blueprint(api_bp, url_prefix='/api/v1')
 
